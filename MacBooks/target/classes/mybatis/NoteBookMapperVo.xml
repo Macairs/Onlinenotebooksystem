@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.vo.daos.CnUserBookNote" >
+
+<!-- 将数据库的例名与pojo的一一对应，要不然会出现查询为null的情况 -->
+<!-- JdbcType是数据类型 -->
+<!-- column是数据库表中的列名 -->
+<!-- property是pojo的属性名 -->
+<resultMap id="notebook" type="com.qfedu.pojos.CnNote">
+    <id column="cn_note_id" property="cnNoteId" jdbcType="VARCHAR" />
+    <result column="cn_notebook_id" property="cnNotebookId" jdbcType="VARCHAR" />
+    <result column="cn_user_id" property="cnUserId" jdbcType="VARCHAR" />
+    <result column="cn_note_status_id" property="cnNoteStatusId" jdbcType="VARCHAR" />
+    <result column="cn_note_type_id" property="cnNoteTypeId" jdbcType="VARCHAR" />
+    <result column="cn_note_title" property="cnNoteTitle" jdbcType="VARCHAR" />
+    <result column="cn_note_body" property="cnNoteBody" jdbcType="VARCHAR" />
+    <result column="cn_note_create_time" property="cnNoteCreateTime" jdbcType="BIGINT" />
+    <result column="cn_note_last_modify_time" property="cnNoteLastModifyTime" jdbcType="BIGINT" />
+    <!-- cnNoteTypeId这个没加上 需要时在加 -->
+</resultMap>
+<!-- notebook信息 -->
+<resultMap id="BaseResultMap" type="com.qfedu.pojos.CnNotebook" >
+    <id column="cn_notebook_id" property="cnNotebookId" jdbcType="VARCHAR" />
+    <result column="cn_user_id" property="cnUserId" jdbcType="VARCHAR" />
+    <result column="cn_notebook_type_id" property="cnNotebookTypeId" jdbcType="VARCHAR" />
+    <result column="cn_notebook_name" property="cnNotebookName" jdbcType="VARCHAR" />
+    <result column="cn_notebook_createtime" property="cnNotebookCreatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+<!-- 当业务成有返回值时，我们要尽可能的配置resultType这个返回值类型 -->
+<!-- 当业务返回的是对象时我们要尽可能的配置resultMap这个对象返回值类型 -->
+<!-- 用#号的话可以传对象的任何值名字也可以随便起，用$号的话只能传单值而且名字得一致 -->
+<!-- 通过用户id查询笔记本id -->
+  		<select id="getNoteBookdao" resultMap="BaseResultMap" parameterType="string">
+  				select * from cn_notebook where cn_user_id = #{cnUserId} 
+  		</select>
+ <!-- 通过笔记本id查询笔记 --> 		
+ 		<select id="selnote" resultMap="notebook" parameterType="string">
+ 				select * from cn_note where cn_notebook_id = #{cnNotebook}
+ 		</select>
+  		
+</mapper>
+
+
