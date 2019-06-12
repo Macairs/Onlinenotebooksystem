@@ -9,4 +9,6 @@ public interface SelNoteBook {
 	public returngeneral<List<CnNote>> selnotebook(String cnUserId);
 	
 	public returngeneral<List<CnNote>> selnote(String cnNotebookId);
+	//通过笔记Id查询笔记标题
+	public returngeneral<CnNote> getNote(String NoteId);
 }

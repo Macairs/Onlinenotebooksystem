@@ -29,4 +29,11 @@ public class Notelogn {
 	public  returngeneral<List<CnNote>> GetNoteMsg(@RequestParam(value="notebookid",required = true) String notebookid) {
 		return booksel.selnote(notebookid);
 	}
+	//通过笔记Id 实现笔记的CURD
+	@RequestMapping(value="/NoteCrud",method = RequestMethod.POST)
+	@ResponseBody
+	public returngeneral<CnNote>  NoteCrud(@RequestParam(value="noteid",required = true)String noteid){
+		returngeneral<CnNote> notemsg = booksel.getNote(noteid);
+		return notemsg;
+	}
 }

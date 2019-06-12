@@ -42,5 +42,25 @@ public class SelNoteBookimpl implements SelNoteBook {
 		res.setStat(stats.succeed);
 		return res;
 	}
+	
+	//通过笔记Id查询笔记标题
+	@Override
+	public returngeneral<CnNote> getNote(String NoteId) {
+		//实现一个扩展类
+		returngeneral<CnNote> GetNote = new returngeneral<CnNote>();
+		//通过笔记Id查询笔记信息
+		CnNote note = cnnotedao.getNote(NoteId);
+		
+		if(note==null) {
+			GetNote.setData(note);
+			GetNote.setMsg("笔记不存在");
+			GetNote.setStat(stats.undata);
+		}
+		
+		GetNote.setData(note);
+		GetNote.setMsg("笔记存在");
+		GetNote.setStat(stats.succeed);
+		return GetNote;
+	}
 
 }

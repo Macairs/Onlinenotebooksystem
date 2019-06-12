@@ -38,6 +38,11 @@
  		<select id="selnote" resultMap="notebook" parameterType="string">
  				select * from cn_note where cn_notebook_id = #{cnNotebook}
  		</select>
+ 		
+ 		<!-- 通过笔记id查询笔记标题 --> 		
+ 		<select id="getNote" resultMap="notebook" parameterType="string">
+ 				select * from cn_note where cn_note_id = #{cnNoteId}
+ 		</select>
   		
 </mapper>
 

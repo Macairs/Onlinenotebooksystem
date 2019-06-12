@@ -50,6 +50,7 @@ function loginNoteTitle(){
 	  				for(var i = 0 ; i<leng ;i++ ){
 	  					var notename =  datas.data[i].cnNoteTitle;
 	  					var noteid = datas.data[i].cnNoteId;
+	  					//创建 li以及绑值
 	  					createli(notename,noteid);
 	  				}
 	  			}
@@ -57,6 +58,7 @@ function loginNoteTitle(){
 	}); 
 	
 }
+
 
 function createli(notename,noteid){
 	 	  var li="";
@@ -75,5 +77,5 @@ function createli(notename,noteid){
 			  var $lis = $(li);
 			  $("#contactslist").append($lis);
 			  //绑定noteid值
-			  $(".btn_slide_down").last().attr("lidata",noteid);
+			  $("#contactslist a").last().attr("lidata",noteid);
 }
