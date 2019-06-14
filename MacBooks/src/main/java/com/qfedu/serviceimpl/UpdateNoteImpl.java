@@ -19,8 +19,9 @@ public class UpdateNoteImpl implements UpdateNoteMsg {
 		note.setCnNoteCreateTime(System.nanoTime());
 		note.setCnNoteId(id);
 		note.setCnNoteTitle(NoteTitle);
-		NoteDao.updateByPrimaryKey(note);
-		return 0;
+		int updatecocunt = NoteDao.updateByPrimaryKeySelective(note);
+		System.out.println(updatecocunt);
+		return updatecocunt;
 	}
 
 }

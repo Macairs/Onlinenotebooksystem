@@ -50,7 +50,10 @@ function buttonmsg(){
 			 type:'post',
 			 data:{'NoteId':noteid,'NodeBody':notebody,'NodeTitle':notetitle},
 			 success: function(datas){
-				
+				 var li = "";
+				 li+='<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>'+notetitle+'<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down"><i class="fa fa-chevron-down"></i></button>';
+				 $("#contactslist a.checked").html(li);
+				 alert("成功!");
 			 }
 		 });
 	});

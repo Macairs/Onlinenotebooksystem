@@ -22,11 +22,11 @@ public class updateNoteMsg {
 	private UpdateNoteMsg NoteService;
 	@RequestMapping(value="/updnotemsgs",method = RequestMethod.POST)
 	@ResponseBody
-	public String UpdNote(@RequestParam(value="NoteId",required = true) String NoteId,
+	public int UpdNote(@RequestParam(value="NoteId",required = true) String NoteId,
 		 @RequestParam(value="NodeBody",required = true)String NodeBody,
 		 @RequestParam(value="NodeTitle",required = true)String NodeTitle){
 		System.out.println(NoteId+"----"+NodeBody+"------"+NodeTitle);
-		NoteService.UpdNote(NoteId, NodeBody, NodeTitle);
-		return "true";
+		int count = NoteService.UpdNote(NoteId, NodeBody, NodeTitle);
+		return count;
 	}
 }

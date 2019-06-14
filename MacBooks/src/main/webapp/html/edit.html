@@ -22,6 +22,7 @@
 		<script type="text/javascript" src="scripts/localStorage.js"></script>
 		<script type="text/javascript" src="scripts/loginNoteBook.js"></script>
 		<script type="text/javascript" src="scripts/optionnoteFind.js"></script>
+		<script type="text/javascript" src="scripts/NoteBookCreate.js"></script>
 		<script type="text/javascript">
 				$(function(){
 					//加载主页面时拿来判断用户登录状况。以及退出操作
@@ -36,6 +37,8 @@
 					Notebackg();
 					//处理Note的CRUD操作	
 					buttonmsg();
+					//增加笔记本
+					NoteBookCrud();
 				})
 		</script>
     </head>
@@ -316,13 +319,13 @@
 		<script type="text/javascript" src="scripts/ue/lang/zh-cn.js"></script>
 		
 		<script type="text/javascript">
-			/* //重写JS原生alert函数
+			 /* //重写JS原生alert函数
 				window.alert=function(e){
 					$('#can').load('./alert/alert_error.html',function(){
 						$('#error_info').text(' '+e);
 						$('.opacity_bg').show();
 					});
-				} */
+				}  */
 			//实例化Ueditor编辑器
 			var um = UM.getEditor('myEditor');
 		</script>
