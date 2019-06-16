@@ -46,7 +46,10 @@ function NoteBookCrud(){
 								$("#can #modalBasic").hide();
 								//背景变黑用的（这里是隐藏）
 								$('.opacity_bg').hide();
-								
+								//用来重置列表（这里的思路是先清空在显示）
+								 $("#loginNote").empty();
+								 //在从新加载
+								 loginBookTitle();
 							}
 						}
 					});

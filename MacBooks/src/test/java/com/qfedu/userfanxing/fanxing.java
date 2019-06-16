@@ -1,6 +1,7 @@
 package com.qfedu.userfanxing;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
@@ -20,8 +21,9 @@ public class fanxing {
 //		  System.out.println(nowTime);
 		  //随机数
 		  Random random = new Random();
-		  byte []b = {(byte) random.nextInt(6)};
-		 System.out.println(Arrays.toString(b)); 
+		  ArrayList<Integer> listrandom = new ArrayList<>();
+		  listrandom.add(random.nextInt(6));
+		 System.out.println(listrandom.toString()); 
 		  
 		  
 	}

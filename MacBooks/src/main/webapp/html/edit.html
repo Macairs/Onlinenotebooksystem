@@ -39,6 +39,37 @@
 					buttonmsg();
 					//增加笔记本
 					NoteBookCrud();
+					//新增笔记
+					$("#add_note").click(function(){
+						//引入
+						$('#can').load('./alert/alert_note.html',function(){
+							$('.opacity_bg').show();
+							//x按钮
+							$("#clone_x").click(function(){
+								$("#can #modalBasic_2").hide();
+								$('.opacity_bg').hide();
+							});
+							//取消按钮
+							$("#clone_cancle").click(function(){
+								$("#can #modalBasic_2").hide();
+								$('.opacity_bg').hide();
+							});
+							//保存按钮
+							$("#sure").click(function(){
+								//标记用来判断是否符合要求
+								var ok = true;
+								//提示默认隐藏
+								$("#plos").hide();
+								var NoteName = $("#input_note").val().trim();
+								if(NoteName==null || NoteName ==""){
+									//满足条件 提示会出现
+									$("#plos").show();
+									ok=false;
+								}
+								
+							});
+						});
+					});
 				})
 		</script>
     </head>

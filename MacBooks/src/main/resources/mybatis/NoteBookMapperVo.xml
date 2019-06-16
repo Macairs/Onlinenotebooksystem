@@ -32,7 +32,7 @@
 <!-- 用#号的话可以传对象的任何值名字也可以随便起，用$号的话只能传单值而且名字得一致 -->
 <!-- 通过用户id查询笔记本id -->
   		<select id="getNoteBookdao" resultMap="BaseResultMap" parameterType="string">
-  				select * from cn_notebook where cn_user_id = #{cnUserId} 
+  				select * from cn_notebook where cn_user_id = #{cnUserId} ORDER BY  cn_notebook_createtime desc
   		</select>
  <!-- 通过笔记本id查询笔记 --> 		
  		<select id="selnote" resultMap="notebook" parameterType="string">
