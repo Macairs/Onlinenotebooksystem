@@ -19,13 +19,21 @@ function model(){
 		//收藏笔记模块
 		$("#pc_part_4").show();
 		//------------
+		//显示前先清空一下之前生成的
+		$("#contacts-list").empty();
+		
 		var userid = localStorage.getItem("UserMsg");
 		$.ajax({
 			url:'http://localhost:8080/MacBooks/delnote',
 			type:'post',
 			data:{'userId':userid},
-			success:function(data){
-				
+			success:function(datas){
+				var len  = datas.data.length;
+				for(var i = 0 ; i<len;i++ ){
+					var notename = datas.data[i].cnNoteTitle;
+					var noteid = datas.data[i].cnNoteId;
+					autoaddli(notename,noteid);
+				}
 			}
 		});
 	});
@@ -72,9 +80,33 @@ function PseudoDelNote(){
 			//删除按钮
 			$("#sure").click(function(){
 				var noteid = $("#contactslist a.checked").attr("lidata");
-				alert(noteid);
+					$.ajax({
+						url:'http://localhost:8080/MacBooks/pseudodel',
+						type:'post',
+						data:{'noteid':noteid},
+						success:function(datas){
+							if(datas==1){
+								alert("删除成功");
+								$('.opacity_bg').hide();
+								$("#can #modalBasic_7").hide();
+								$("#contactslist a.checked").hide();
+							}else{
+								alert("删除失败");
+							}
+						}
+						
+					})
 			});
 		});
 		
 	})
+}
+
+
+
+//动态生成li列表
+function autoaddli(notename,noteid){
+	var li = '<li class="disable"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> '+notename+'<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button><button type="button" class="btn btn-default btn-xs btn_position_2 btn_replay"><i class="fa fa-reply"></i></button></a></li>';
+	$("#contacts-list").append(li);
+	$("#contacts-list a").last().attr("noteids",noteid);
 }

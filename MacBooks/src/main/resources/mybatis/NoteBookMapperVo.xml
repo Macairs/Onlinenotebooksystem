@@ -43,7 +43,10 @@
  		<select id="getNote" resultMap="notebook" parameterType="string">
  				select * from cn_note where cn_note_id = #{cnNoteId} 
  		</select>
-  		
+  		<!-- 通过用户Id查询状态值为0的笔记 -->
+  		<select id="getstatNote0" resultMap="notebook" parameterType="string">
+  				select *from cn_note where cn_user_id = #{cnUserid} and cn_note_status_id = "0"
+  		</select>
 </mapper>
 
 

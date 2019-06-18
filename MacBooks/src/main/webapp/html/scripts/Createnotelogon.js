@@ -37,7 +37,7 @@ function createnote(){
 			  			success: function(datas){
 			  				if(datas==1){
 			  					 $("#contactslist").empty();
-								 //在从新加载
+								 //在从新加载笔记（这样做就能实现动态刷新了）
 			  					LoginNote(notebookid);
 			  					$("#can #modalBasic_2").hide();
 								$('.opacity_bg').hide();

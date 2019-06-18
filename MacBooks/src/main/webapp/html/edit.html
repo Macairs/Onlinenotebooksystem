@@ -25,6 +25,7 @@
 		<script type="text/javascript" src="scripts/NoteBookCreate.js"></script>
 		<script type="text/javascript" src="scripts/Createnotelogon.js"></script>
 		<script type="text/javascript" src="scripts/NoteModel.js"></script>
+		<script type="text/javascript" src="scripts/mobile.js"></script>
 		<script type="text/javascript">
 				$(function(){
 					//加载主页面时拿来判断用户登录状况。以及退出操作
@@ -47,6 +48,29 @@
 					model();
 					//伪删除操作
 					PseudoDelNote();
+					//移动至操作
+					mobileoperation();
+					//撤销删除操作以及确定删除操作  btn_replay
+					$("#contacts-list").on("click",".btn_delete",function(){
+						$('#can').load('./alert/alert_delete_rollback.html',function(){
+							$('.opacity_bg').show();
+							//x按钮
+							$("#modal").click(function(){
+								$("#can #modalBasic_10").hide();
+								$('.opacity_bg').hide();
+							});
+							
+							//取消按钮
+							$("#modals").click(function(){
+								$("#can #modalBasic_10").hide();
+								$('.opacity_bg').hide();
+							});
+							//继续按钮
+							$("#Delsure").click(function(){
+								
+							});
+						});
+					})
 				})
 		</script>
     </head>
@@ -152,9 +176,9 @@
 					<div class="module" data-toggle="niceScroll">
 						<div class="chat-contact">
 							<div class="contact-body">
-								<ul class="contacts-list">
-									<li class="disable"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> 虚假回收站笔记<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button><button type="button" class="btn btn-default btn-xs btn_position_2 btn_replay"><i class="fa fa-reply"></i></button></a></li>
-								</ul>
+								<ul class="contacts-list" id="contacts-list">
+<!-- 									<li class="disable"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> 虚假回收站笔记<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button><button type="button" class="btn btn-default btn-xs btn_position_2 btn_replay"><i class="fa fa-reply"></i></button></a></li>
+ -->								</ul>
 							</div>
 						</div>
 					</div>

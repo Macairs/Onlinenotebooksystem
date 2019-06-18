@@ -23,5 +23,15 @@ public class UpdateNoteImpl implements UpdateNoteMsg {
 		System.out.println(updatecocunt);
 		return updatecocunt;
 	}
+	
+	//伪删除操作
+	@Override
+	public int PseuDodel(String noteid) {
+		CnNote note = new CnNote();
+		note.setCnNoteId(noteid);
+		note.setCnNoteStatusId("0");
+		int i = NoteDao.updateByPrimaryKeySelective(note);
+		return i;
+	}
 
 }

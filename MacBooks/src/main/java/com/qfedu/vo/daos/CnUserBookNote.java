@@ -11,4 +11,6 @@ public interface CnUserBookNote extends CnNoteMapper {
 	public List<CnNote> selnote(String cnNotebookId);
 	//通过笔记id查询笔记标题
 	public CnNote getNote(String CnNoteId);
+	//通过用户id查询状态值为0的笔记
+	public List<CnNote> getstatNote0(String CnUserid);
 }
