@@ -23,6 +23,8 @@
 		<script type="text/javascript" src="scripts/loginNoteBook.js"></script>
 		<script type="text/javascript" src="scripts/optionnoteFind.js"></script>
 		<script type="text/javascript" src="scripts/NoteBookCreate.js"></script>
+		<script type="text/javascript" src="scripts/Createnotelogon.js"></script>
+		<script type="text/javascript" src="scripts/NoteModel.js"></script>
 		<script type="text/javascript">
 				$(function(){
 					//加载主页面时拿来判断用户登录状况。以及退出操作
@@ -40,36 +42,11 @@
 					//增加笔记本
 					NoteBookCrud();
 					//新增笔记
-					$("#add_note").click(function(){
-						//引入
-						$('#can').load('./alert/alert_note.html',function(){
-							$('.opacity_bg').show();
-							//x按钮
-							$("#clone_x").click(function(){
-								$("#can #modalBasic_2").hide();
-								$('.opacity_bg').hide();
-							});
-							//取消按钮
-							$("#clone_cancle").click(function(){
-								$("#can #modalBasic_2").hide();
-								$('.opacity_bg').hide();
-							});
-							//保存按钮
-							$("#sure").click(function(){
-								//标记用来判断是否符合要求
-								var ok = true;
-								//提示默认隐藏
-								$("#plos").hide();
-								var NoteName = $("#input_note").val().trim();
-								if(NoteName==null || NoteName ==""){
-									//满足条件 提示会出现
-									$("#plos").show();
-									ok=false;
-								}
-								
-							});
-						});
-					});
+					createnote();
+					//回收  收藏笔记  参加活动的事务处理
+					model();
+					//伪删除操作
+					PseudoDelNote();
 				})
 		</script>
     </head>

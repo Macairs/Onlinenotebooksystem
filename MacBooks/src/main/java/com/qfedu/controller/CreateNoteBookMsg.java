@@ -24,4 +24,13 @@ public class CreateNoteBookMsg {
 	public int CreateNoteBookDao(@RequestParam(value="NoteBookName",required = true)String NoteBookName,@RequestParam(value="UserId",required = true)String UserId) {
 		return createnotebook.CreateNotebook(NoteBookName, UserId);
 	}
+	
+	@RequestMapping(value="/createnote")
+	@ResponseBody
+	public int  CreateNoteDao(@RequestParam(value="notebookid",required = true) String notebookid,
+			                  @RequestParam(value="notename",required = true)String notename,
+			                  @RequestParam(value="userid",required = true)String userid) {
+     						 int count =  createnotebook.CreateNote(notebookid, notename,userid);
+		return count;
+	}
 }
