@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.qfedu.daos.CnNoteMapper;
 import com.qfedu.enums.stats;
 import com.qfedu.pojos.CnNote;
 import com.qfedu.service.PseudoDel;
@@ -25,4 +26,15 @@ public class PseudoDelImpl implements PseudoDel {
 		returngeneral.setStat(stats.succeed);
 		return returngeneral;
 	}
+	
+	//删除操作
+	@Resource(name="cnNoteMapper")
+	private CnNoteMapper notemapper;
+	@Override
+	public Integer DelNote(String Noteid) {
+		Integer count = notemapper.deleteByPrimaryKey(Noteid);
+		return count;
+	}
+	
+
 }

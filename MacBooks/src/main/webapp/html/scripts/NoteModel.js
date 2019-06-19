@@ -23,19 +23,7 @@ function model(){
 		$("#contacts-list").empty();
 		
 		var userid = localStorage.getItem("UserMsg");
-		$.ajax({
-			url:'http://localhost:8080/MacBooks/delnote',
-			type:'post',
-			data:{'userId':userid},
-			success:function(datas){
-				var len  = datas.data.length;
-				for(var i = 0 ; i<len;i++ ){
-					var notename = datas.data[i].cnNoteTitle;
-					var noteid = datas.data[i].cnNoteId;
-					autoaddli(notename,noteid);
-				}
-			}
-		});
+		refresh(userid);
 	});
 	
 	//打开收藏笔记本
@@ -104,9 +92,26 @@ function PseudoDelNote(){
 
 
 
-//动态生成li列表
+//动态生成li列表(这是三个功能区的li)
 function autoaddli(notename,noteid){
 	var li = '<li class="disable"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> '+notename+'<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button><button type="button" class="btn btn-default btn-xs btn_position_2 btn_replay"><i class="fa fa-reply"></i></button></a></li>';
 	$("#contacts-list").append(li);
 	$("#contacts-list a").last().attr("noteids",noteid);
+}
+
+//回收站li的刷新操作
+function refresh(userid){
+	$.ajax({
+		url:'http://localhost:8080/MacBooks/delnote',
+		type:'post',
+		data:{'userId':userid},
+		success:function(datas){
+			var len  = datas.data.length;
+			for(var i = 0 ; i<len;i++ ){
+				var notename = datas.data[i].cnNoteTitle;
+				var noteid = datas.data[i].cnNoteId;
+				autoaddli(notename,noteid);
+			}
+		}
+	});
 }

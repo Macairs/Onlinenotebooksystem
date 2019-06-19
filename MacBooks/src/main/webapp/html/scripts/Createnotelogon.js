@@ -52,7 +52,7 @@ function createnote(){
 	});
 }
 
-//增加后刷新笔记区（用来处理增加后的笔记展现比使用）
+//增加后刷新笔记区
 function LoginNote(notebookid){
 	$.ajax({
 			url:'http://localhost:8080/MacBooks/NoteMsg',

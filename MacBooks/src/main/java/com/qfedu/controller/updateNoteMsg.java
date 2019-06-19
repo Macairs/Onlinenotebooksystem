@@ -18,6 +18,7 @@ public class updateNoteMsg {
 	 * MsgBody
 	 * MsgTitle
 	 * */
+	//修改操作
 	@Resource
 	private UpdateNoteMsg NoteService;
 	@RequestMapping(value="/updnotemsgs",method = RequestMethod.POST)
