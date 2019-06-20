@@ -50,6 +50,7 @@ function Deloperation(){
 }
 
 
+
 //撤销操作
 function ounull(){
 	$("#contacts-list").on("click",".btn_replay",function(){
@@ -87,6 +88,12 @@ function ounull(){
 							//重置一下 Ul列表 然后在输出
 							$("#contacts-list").empty();
 							refresh(userid);
+						}
+						if(datas==2){
+							alert("收藏笔记");
+						}
+						if(datas==3){
+							alert("参加活动笔记");
 						}
 					}
 				})
