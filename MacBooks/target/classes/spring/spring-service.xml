@@ -4,16 +4,33 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- 开启扫描service相关bean -->	
 	<context:component-scan base-package="com.qfedu.*" />
 	
 	<!-- 事务管理 -->
 	<!-- Aop切面 -->
+    <!-- 通知对象 -->
+    <bean name="transactionAdvice" class="com.qfedu.aop.TransactionAdvice"></bean>
+    <!-- 将通知对象织入目标对象 -->
+    <aop:config>
+        <!-- 选择切入点 -->
+        <aop:pointcut expression="execution(* com.qfedu.service..testaops.*(..))" id="pointcut"/>
+        <aop:aspect ref="transactionAdvice">
+            <aop:before method="before" pointcut-ref="pointcut"/>
+            <aop:after-returning  method="afterReturning" pointcut-ref="pointcut"/>
+            <!--<aop:after method="after" pointcut-ref="pointcut"/>无论是否出现异常都会调用
+            <aop:around method="around" pointcut-ref="pointcut"/>
+            <aop:after-throwing method="afterException" pointcut-ref="pointcut"/> -->
+        </aop:aspect>
+    </aop:config>
 	<!-- 等等 -->
 </beans>

@@ -129,7 +129,23 @@
 			<artifactId>protostuff-runtime</artifactId>
 			<version>1.0.8</version>
 		</dependency>
-
+		<!-- Aop切面 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		    <version>4.1.7.RELEASE</version>
+		</dependency>
+		
+	  <dependency>
+		      <groupId>org.aspectj</groupId>
+		      <artifactId>aspectjrt</artifactId>
+		      <version>1.9.1</version>
+      </dependency>
+       <dependency>
+	       <groupId>org.aspectj</groupId>
+	       <artifactId>aspectjweaver</artifactId>
+	       <version>1.9.1</version>
+       </dependency>
 		<!-- Map工具类 -->
 		<dependency>
 			<groupId>commons-collections</groupId>

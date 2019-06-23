@@ -8,9 +8,11 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import com.qfedu.interfacecallback.DataMsgcallback;
 import com.qfedu.utli.returngeneral;
 
-public class fanxing {
+public class fanxing implements DataMsgcallback<String>{
+	private String name;
 	@Test
 	public void test() {
 		
@@ -27,4 +29,20 @@ public class fanxing {
 		  
 		  
 	}
+	
+
+	
+	public String getname() {
+		return name;
+	}
+
+
+
+	@Override
+	public void GetData(String DataMsg) {
+		this.name = DataMsg;
+	}
+
+
+
 }

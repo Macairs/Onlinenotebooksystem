@@ -62,5 +62,6 @@ public class SelNoteBookimpl implements SelNoteBook {
 		GetNote.setStat(stats.succeed);
 		return GetNote;
 	}
+	
 
 }

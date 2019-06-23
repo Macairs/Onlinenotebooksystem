@@ -31,6 +31,7 @@ function usermsg(){
 	                				alert(msg);
 	                				//绑定参数
 	                				localStorage.setItem("UserMsg",data.data.cnUserId);
+	                				localStorage.setItem("Username",data.data.cnUserName);
 	                				//获取绑定好的参数
 	                				//alert(localStorage.getItem("UserMsg"));
 	                				window.location.href="http://localhost:8080/MacBooks/html/edit.html";
