@@ -3,19 +3,31 @@ package com.qfedu.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.qfedu.aop.TransactionAdvice;
 import com.qfedu.daos.CnNoteMapper;
+import com.qfedu.enums.stats;
+import com.qfedu.interfacecallback.DataMsgImpl;
 import com.qfedu.pojos.CnNote;
+import com.qfedu.service.testaops;
 import com.qfedu.serviceimpl.PseudoDelImpl;
 import com.qfedu.serviceimpl.UpdateNoteImpl;
 import com.qfedu.utli.returngeneral;
 
 @Controller
 public class deleterecycle {
+	//用来返回获取到的数据的值
+	private returngeneral<CnNote> general = new returngeneral<>();
+	//参加活动笔记操作的Service
+	@Autowired
+	private testaops aops;
 	//回收站操作
 	@Resource(name="pseudoDelImpl")
 	private PseudoDelImpl pseudo;
@@ -50,7 +62,7 @@ public class deleterecycle {
 	private CnNoteMapper notemapp;
 	@RequestMapping(value = "/undooper",method = RequestMethod.POST)
 	@ResponseBody
-	public Integer undooper(@RequestParam(value="Noteid",required = true) String Noteid,
+	public returngeneral<CnNote> undooper(@RequestParam(value="Noteid",required = true) String Noteid,
 							@RequestParam(value="model",required = true) String model) {
 		//标记，用来给前端做判断的
 		Integer count = 0 ;
@@ -60,18 +72,28 @@ public class deleterecycle {
 			notes.setCnNoteStatusId("1");
 			notes.setCnNoteId(Noteid);
 			notemapp.updateByPrimaryKeySelective(notes);
-			count = 1;
+			general.setMsg("1");
 		}else if("colls".equals(model)){
+			
 			System.out.println("收藏笔记");
-			count = 2;
+			general.setMsg("2");
+			
 		}else if("activ".equals(model)) {
 			System.out.println("参加活动笔记");
+			//将获取得到的noteid传给aop（通过接口回调）
+			DataMsgImpl msg = new DataMsgImpl(new TransactionAdvice());
+			msg.setData(Noteid);
+			//调用service用来保存活动笔记
+			CnNote note = aops.testselect();
+			general.setData(note);
+			general.setMsg("3");
+			general.setStat(stats.succeed);
 			count = 3;
 		}else{
 			System.out.println("操作失败，无效操作");
 			count = 0;
 		}
 		
-		return count;
+		return general;
 	}
 }

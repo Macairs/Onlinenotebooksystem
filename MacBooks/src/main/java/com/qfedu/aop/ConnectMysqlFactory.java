@@ -8,7 +8,7 @@ public abstract class ConnectMysqlFactory {
 	static Connection conn = null;
 	public static Connection getconnectfactory() {
 			//C3P0驱动器
-			String driverClassName = "com.mysql.jdbc.Driver";
+			String driverClassName = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://localhost:3306/cloud_note?useUnicode=true&characterEncoding=utf8";
 			String username = "root";
 			String password = "12345678";

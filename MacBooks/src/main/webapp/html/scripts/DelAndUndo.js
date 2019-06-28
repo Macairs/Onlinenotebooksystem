@@ -81,7 +81,7 @@ function ounull(){
 					type:'post',
 					data:{'Noteid':demoid,'model':model},
 					success:function(datas){
-						if(datas==1){
+						if(datas.msg=="1"){
 							alert("已经恢复至默认笔记");
 							$("#can #modalBasic_3").hide();
 							$('.opacity_bg').hide();
@@ -89,15 +89,31 @@ function ounull(){
 							$("#contacts-list").empty();
 							refresh(userid);
 						}
-						if(datas==2){
+						if(datas.msg=="2"){
 							alert("收藏笔记");
 						}
-						if(datas==3){
+						if(datas.msg=="3"){
 							alert("参加活动笔记");
+							$("#can #modalBasic_3").hide();
+							$('.opacity_bg').hide();
 						}
 					}
 				})
 			});
 		});
 	})
+}
+
+
+function showflast(){
+	
+}
+//显示参加活动笔记的方法
+function shownote(notetitle,noteid){
+//	$("#action_button").click(function(){alert(true)});
+	var li = 'li class="offline"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>'+notetitle+'</a></li>';
+	$("#activit").append(li);
+	//绑值
+	$("#activit a").last.attr("noteid",noteid);
+	
 }
