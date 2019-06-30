@@ -16,6 +16,8 @@ import com.qfedu.daos.CnNoteMapper;
 import com.qfedu.enums.stats;
 import com.qfedu.interfacecallback.DataMsgImpl;
 import com.qfedu.pojos.CnNote;
+import com.qfedu.pojos.vo.CnNoteVo;
+import com.qfedu.service.cnNotevo;
 import com.qfedu.service.testaops;
 import com.qfedu.serviceimpl.PseudoDelImpl;
 import com.qfedu.serviceimpl.UpdateNoteImpl;
@@ -95,5 +97,15 @@ public class deleterecycle {
 		}
 		
 		return general;
+	}
+	//查询user中存在的笔记本
+	@Autowired
+	private cnNotevo vo;
+	@RequestMapping(value="/getcnnotevo")
+	@ResponseBody
+	public List<CnNoteVo> selectCnNoteVo(@RequestParam(value="userid",required = true) String userid){
+		System.out.println(userid);
+		List<CnNoteVo> cnote = vo.getNotevo(userid);
+		return cnote;
 	}
 }

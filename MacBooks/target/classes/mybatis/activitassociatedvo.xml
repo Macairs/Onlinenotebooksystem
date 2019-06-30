@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.vo.daos.CnNoteAritileVo" >
+
+<!-- 将数据库的例名与pojo的一一对应，要不然会出现查询为null的情况 -->
+<!-- JdbcType是数据类型 -->
+<!-- column是数据库表中的列名 -->
+<!-- property是pojo的属性名 -->
+<resultMap id="CnNoteVos" type="com.qfedu.pojos.vo.CnNoteVo">
+    <id column="cn_note_id" property="cnNoteId" jdbcType="VARCHAR" />
+    <result column="cn_notebook_id" property="cnNotebookId" jdbcType="VARCHAR" />
+    <result column="cn_user_id" property="cnUserId" jdbcType="VARCHAR" />
+    <result column="cn_note_status_id" property="cnNoteStatusId" jdbcType="VARCHAR" />
+    <result column="cn_note_type_id" property="cnNoteTypeId" jdbcType="VARCHAR" />
+    <result column="cn_note_body" property="cnNoteBody" jdbcType="VARCHAR" />
+    <result column="cn_note_title" property="cnNoteTitle" jdbcType="VARCHAR" />
+    <result column="cn_note_create_time" property="cnNoteCreateTime" jdbcType="BIGINT" />
+    <result column="cn_note_last_modify_time" property="cnNoteLastModifyTime" jdbcType="BIGINT" />
+    <association column="cn_note_id" property="activitys" javaType="CnNoteActivity">
+            <id column="cn_note_id" property="cnNoteId" jdbcType="VARCHAR" />
+		    <result column="cn_activity_id" property="cnActivityId" jdbcType="VARCHAR" />
+		    <result column="cn_note_activity_id" property="cnNoteActivityId" jdbcType="VARCHAR" />
+		    <result column="cn_note_activity_up" property="cnNoteActivityUp" jdbcType="INTEGER" />
+		    <result column="cn_note_activity_down" property="cnNoteActivityDown" jdbcType="INTEGER" />
+		    <result column="cn_note_activity_title" property="cnNoteActivityTitle" jdbcType="VARCHAR" />
+		    <result column="cn_note_activity_body" property="cnNoteActivityBody" jdbcType="VARCHAR"/>
+        </association>
+</resultMap>
+<!-- 当业务成有返回值时，我们要尽可能的配置resultType这个返回值类型 -->
+<!-- 当业务返回的是对象时我们要尽可能的配置resultMap这个对象返回值类型 -->
+<select id="Getdatavo" parameterType="string" resultMap="CnNoteVos">
+  	SELECT `cn_note`.`cn_note_body`,
+	`cn_note`.`cn_note_create_time`,
+	`cn_note`.`cn_note_id`,
+	`cn_note`.`cn_note_last_modify_time`,
+	`cn_note`.`cn_note_status_id`,
+	`cn_note`.`cn_note_title`,
+	`cn_note`.`cn_note_type_id`,
+	`cn_note`.`cn_notebook_id`,
+	`cn_note`.`cn_user_id`,
+	`cn_note_activity`.`cn_activity_id`,`cn_note_activity`.`cn_note_activity_body`,
+	`cn_note_activity`.`cn_note_activity_down`,`cn_note_activity`.`cn_note_activity_id`,
+	`cn_note_activity`.`cn_note_activity_title`,
+	`cn_note_activity`.`cn_note_activity_up`,
+	`cn_note_activity`.`cn_note_id`
+	FROM cn_note LEFT JOIN cn_note_activity ON cn_note.cn_note_id = cn_note_activity.cn_note_id where cn_note.cn_user_id=#{id}			
+  	</select>
+  		
+  		
+</mapper>
+
+

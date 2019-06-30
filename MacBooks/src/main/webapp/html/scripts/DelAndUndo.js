@@ -105,15 +105,32 @@ function ounull(){
 }
 
 
-function showflast(){
-	
-}
+
 //显示参加活动笔记的方法
-function shownote(notetitle,noteid){
-//	$("#action_button").click(function(){alert(true)});
-	var li = 'li class="offline"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>'+notetitle+'</a></li>';
+function shownote(noteid){
+	$("#action_button").click(function(){
+		$("#activit").empty();
+		var userid  = localStorage.getItem("UserMsg");
+		$.ajax({
+			url:'http://localhost:8080/MacBooks/getcnnotevo',
+			type:'post',
+			data:{'userid':userid},
+			success:function(datas){
+				var dataslen = datas.length;
+				for(var i = 0 ;i<dataslen ;i++ ){
+					var title = datas[i].activitys.cnNoteActivityTitle;
+					var activid = datas[i].activitys.cnNoteActivityId;
+					if(title!=null && activid!=null){
+						shownotemsg(activid,title);
+					}
+				}
+			}
+		});
+	});
+}
+//显示参加活动笔记的方法(通过获得的noteid查询信息)
+function shownotemsg(noteids,notetitle){
+	var li = '<li class="idle"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>'+notetitle+'<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button></a></li>';
 	$("#activit").append(li);
-	//绑值
-	$("#activit a").last.attr("noteid",noteid);
-	
+	$("#activit a").last().attr("activitnoteid",noteids);
 }
