@@ -93,9 +93,13 @@ function ounull(){
 							alert("收藏笔记");
 						}
 						if(datas.msg=="3"){
-							alert("参加活动笔记");
+							//重置一下 Ul列表 然后在输出
+							$("#contacts-list").empty();
+							
+							alert("成功");
 							$("#can #modalBasic_3").hide();
 							$('.opacity_bg').hide();
+							refresh(userid);
 						}
 					}
 				})
@@ -103,8 +107,6 @@ function ounull(){
 		});
 	})
 }
-
-
 
 //显示参加活动笔记的方法
 function shownote(noteid){
@@ -120,6 +122,7 @@ function shownote(noteid){
 				for(var i = 0 ;i<dataslen ;i++ ){
 					var title = datas[i].activitys.cnNoteActivityTitle;
 					var activid = datas[i].activitys.cnNoteActivityId;
+					var body = datas[i].activitys.cnNoteActivityBody;
 					if(title!=null && activid!=null){
 						shownotemsg(activid,title);
 					}
@@ -132,5 +135,42 @@ function shownote(noteid){
 function shownotemsg(noteids,notetitle){
 	var li = '<li class="idle"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>'+notetitle+'<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button></a></li>';
 	$("#activit").append(li);
-	$("#activit a").last().attr("activitnoteid",noteids);
+	$("#activit a").last().attr("activitnoteid",noteids);	
+}
+function f(){
+	//a标签效果
+	$("#activit").on("click","a",function(){
+		//渲染a标签前先取消之前的设置（这里设置统一删除）
+		 $("#activit a").removeClass("checked");
+		 var id = $(this).attr("activitnoteid");
+		 //点击后渲染一下a标签
+		 $(this).addClass("checked");
+		 //把获取得到的值绑定给button方便后续传值以便完成Note的CRUD操作
+		 //$("#save_note").attr("btnmsg",noteid);	
+		 ajaxtransmit(id);
+	});
+}
+
+
+//通用的ajax传输（属于活动列表的）			
+function ajaxtransmit(noteid){
+	 $.ajax({
+		 url:'http://localhost:8080/MacBooks/getactivit',
+		 type:'post',
+		 data:{'noteid':noteid},
+		 success: function(datas){
+			var title = null ;
+			var notebody = null;
+			var stats =  datas.stat;
+			if(stats=="succeed"){
+				title =  datas.data.cnNoteActivityTitle;
+				notebody = datas.data.cnNoteActivityBody;
+			}
+			//将notetitle输出到 title框
+			$(".row .col-xs-8 #input_note_title").val(title);
+			//将信息输出到编辑框
+			$("#myEditor").html(notebody);
+			
+		 }
+	 });
 }

@@ -1,6 +1,7 @@
 package com.qfedu.aop;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,10 +42,18 @@ public class TestConnectMysql {
 			//由于是系统自动获取的id所以这里就不做判断了
 			//Sql语句
 			String sql = "SELECT * From cn_note WHERE cn_note_id = '"+noteid+"'";
+			String updsql = "UPDATE cn_note SET cn_note_status_id = 2 WHERE cn_note_id = '"+noteid+"'";
 			try {
 				 //3.操作数据库，实现增删改查
 				Statement crud = c.createStatement();
 				ResultSet getnote = crud.executeQuery(sql);
+				//操作数据库修改
+				PreparedStatement updates = c.prepareStatement(updsql);
+				int i = updates.executeUpdate();
+				if(i==1) {
+					System.out.println("修改成功");
+				}
+				
 				while(getnote.next()) {
 					notecache.setCnUserId(getnote.getString("cn_user_id"));
 					notecache.setCnNoteBody(getnote.getString("cn_note_body"));

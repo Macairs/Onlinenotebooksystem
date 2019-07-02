@@ -45,4 +45,14 @@ public class testaopsimpl implements testaops{
 		noteactivi.insertSelective(activity);
 		return c.getNotedata();
 	}
+	
+	
+	//通过笔记id查询活动列表中的笔记相关信息
+	@Resource(name="cnNoteActivityMapper")
+	private CnNoteActivityMapper activit;
+	@Override
+	public CnNoteActivity getactivity(String noteid) {
+		CnNoteActivity activite = activit.selectByPrimaryKey(noteid);
+		return activite;
+	}
 }

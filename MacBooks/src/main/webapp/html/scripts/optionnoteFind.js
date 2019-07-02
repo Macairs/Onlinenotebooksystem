@@ -19,20 +19,9 @@ function Notebackg(){
 		 var noteid = $(this).attr("lidata");
 		 //把获取得到的值绑定给button方便后续传值以便完成Note的CRUD操作
 		 $("#save_note").attr("btnmsg",noteid);
-		 $.ajax({
-			 url:'http://localhost:8080/MacBooks/NoteCrud',
-			 type:'post',
-			 data:{'noteid':noteid},
-			 success: function(datas){
-				var notetitle =  datas.data.cnNoteTitle;
-				//获取note的内容
-				var notebody  =  datas.data.cnNoteBody;
-				//将notetitle输出到 title框
-				$(".row .col-xs-8 #input_note_title").val(notetitle);
-				//将信息输出到编辑框
-				$("#myEditor").html(notebody);
-			 }
-		 });
+		 
+		 //把ajax抽出来当成公共的模块
+		 publicajax(noteid);
 	});
 }
 
@@ -57,6 +46,24 @@ function buttonmsg(){
 			 }
 		 });
 	});
+}
 
 
+
+//公用的一个ajax方法，用来传值获值(属于笔记表的)
+function publicajax(noteid){
+	 $.ajax({
+		 url:'http://localhost:8080/MacBooks/NoteCrud',
+		 type:'post',
+		 data:{'noteid':noteid},
+		 success: function(datas){
+			var notetitle =  datas.data.cnNoteTitle;
+			//获取note的内容
+			var notebody  =  datas.data.cnNoteBody;
+			//将notetitle输出到 title框
+			$(".row .col-xs-8 #input_note_title").val(notetitle);
+			//将信息输出到编辑框
+			$("#myEditor").html(notebody);
+		 }
+	 });
 }
